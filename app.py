@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 
 app = Flask(__name__)
 stores = [
@@ -14,6 +14,10 @@ stores = [
         ]
     }
 ]
+
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 # POST- to receive data
 # GET- to send data back only
@@ -67,5 +71,4 @@ def get_items_in_store(name):
             return jsonify({'items': store['items']})
     return jsonify({'message': 'store not found'})
 
-app.run(port=8001)
-app.debug(True)
+app.run(port=8001, debug=True)
